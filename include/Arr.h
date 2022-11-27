@@ -2,10 +2,13 @@
 
 #include <memory.h>
 #include <iostream>
+#include <cstdlib>
+#include <time.h>
+
 #include "./TypeAliases.h"
+#include "./Str.h"
 
 namespace ml {
-    class Str;
 
     template <typename T>
     class Arr {
@@ -163,7 +166,7 @@ namespace ml {
             return new_arr;
         }
 
-        Str join(const char separator) {
+        Str join(const char separator) const {
             u32 all_str_len = 0;
 
             for_each([&all_str_len] (Str el) {
@@ -182,6 +185,21 @@ namespace ml {
 
             new_str[all_str_len-1] = '\0';
             return Str(new_str);
+        }
+
+        void shuffle() {
+            srand(time(nullptr));
+
+            for (u32 i = 0; i < current_len; i++) {
+                u32 rand_num;
+                do {
+                    rand_num = rand() % current_len;
+                } while (rand_num == i);
+
+                T temp = virt_head[rand_num];
+                virt_head[rand_num] = virt_head[i];
+                virt_head[i] = temp;
+            }
         }
 
         ~Arr() {
