@@ -35,6 +35,7 @@ namespace ml {
         Str trim();
         Str to_upper() const;
         Str to_lower() const;
+        const char* to_c_str() const;
         ~Str();
     };
 };

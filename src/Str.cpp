@@ -223,6 +223,10 @@ namespace ml {
         return in;
     }
 
+    const char* Str::to_c_str() const {
+        return head;        
+    }
+
     Str::~Str()
     {
         delete[] head;
