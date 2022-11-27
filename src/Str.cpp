@@ -101,12 +101,12 @@ namespace ml {
             }
         }
 
-        temp_p = new char[length-current+1];
+        temp_p = new char[length-start+1];
         u32 i;
         for (i = start; i <= current; i++)
             temp_p[i-start] = head[i];
 
-        temp_p[(current)-start] = '\0';
+        temp_p[(length)-start] = '\0';
         strs.push(Str(temp_p).trim());
         delete[] temp_p;
         return strs;
@@ -148,13 +148,13 @@ namespace ml {
     }
 
     Str Str::trim() {
-        u32 start;
-        u32 end;
+        i32 start;
+        i32 end;
         char* temp_p;
 
         for (start = 0; _is_escape_char(head[start]); ++start);
         for (end = length-1; _is_escape_char(head[end]); --end);
-        u32 new_len = end - start + 1;
+        i32 new_len = end - start + 1;
         temp_p = new char[new_len+1];
         memcpy(temp_p, head+start, new_len);
         temp_p[new_len] = '\0';
