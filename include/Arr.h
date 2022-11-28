@@ -112,7 +112,17 @@ namespace ml {
             }
 
             if ((actual_len - current_len) != 0) {
-                for (u32 i = current_len; i > index; --i)
+                --virt_head;
+                for (i32 i = 0; i < index; i++)
+                    virt_head[i] = virt_head[i+1];
+                
+                virt_head[index] = el;
+                ++current_len;
+                return;
+            }
+
+            if ((actual_len - AMORT_MID - current_len) != 0) {
+                for (i32 i = current_len; i > index; --i)
                     virt_head[i] = virt_head[i-1];
 
                 virt_head[index] = el;
@@ -121,7 +131,7 @@ namespace ml {
             }
 
             T* temp_p = new T[current_len+AMORT_LEN];
-            for (u32 i = current_len; i > index; --i) 
+            for (i32 i = current_len; i > index; --i) 
                 temp_p[AMORT_MID+i] = virt_head[i-1];
 
             temp_p[index+AMORT_MID] = el;
