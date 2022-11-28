@@ -201,10 +201,12 @@ namespace ml {
             srand(time(nullptr));
 
             for (u32 i = 0; i < current_len; i++) {
+                if (current_len < 2) {
+                    std::cerr << "Error: shuffling array lenght less 2" << std::endl;
+                    exit(-1);
+                }
                 u32 rand_num;
-                do {
-                    rand_num = rand() % current_len;
-                } while (rand_num == i);
+                rand_num = rand() % current_len;
 
                 T temp = virt_head[rand_num];
                 virt_head[rand_num] = virt_head[i];
